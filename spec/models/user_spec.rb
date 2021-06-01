@@ -35,6 +35,14 @@ RSpec.describe User, type: :model do
 
     end
 
+    it "ignores whitespace in email" do
+
+      @user = User.new(name: "Jeff", email: "jeff@thebrotherhood.com", password: "brotherhood")
+      @user.save
+      expect(User.authenticate_with_credentials(" jeff@thebrotherhood.com ", "brotherhood")).to be_truthy
+
+    end
+
     it "does not authenticate an invalid user" do
 
       @user = User.new(name: "Jeff", email: "jeff@thebrotherhood.com", password: "brotherhood")
